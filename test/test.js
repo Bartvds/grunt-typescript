@@ -1,8 +1,9 @@
 var grunt = require("grunt");
 var fs = require("fs");
+var path = require("path");
 
 module.exports.typescript = {
-    simple:function (test) {
+   /* simple:function (test) {
         "use strict";
 
         test.expect(1);
@@ -27,7 +28,7 @@ module.exports.typescript = {
         test.equal(expected, actual);
 
         test.done();
-    },
+    },*/
     sourcemap:function(test){
         "use strict";
 
@@ -43,6 +44,27 @@ module.exports.typescript = {
 
         test.done();
     },
+	"sourcemap-fullpath":function(test){
+		"use strict";
+
+		test.expect(2);
+
+		var full = path.dirname(path.resolve("test/fixtures/sourcemap-fullpath.ts"));
+		//make file url with forward slashes
+		full = 'file:///' + full.replace(/\\/g, '/');
+
+		var actual = grunt.file.read("test/fixtures/sourcemap-fullpath.js");
+		var expected = grunt.file.read("test/expected/sourcemap-fullpath.js");
+		expected = expected.replace('####MAP####', full + '/sourcemap-fullpath.js.map');
+		test.equal(expected, actual);
+
+		actual = grunt.file.read("test/fixtures/sourcemap-fullpath.js.map");
+		expected = grunt.file.read("test/expected/sourcemap-fullpath.js.map");
+		expected = expected.replace('####SRC####', full + '/sourcemap-fullpath.js');
+		test.equal(expected, actual);
+
+		test.done();
+	},
     es5:function(test){
         "use strict";
 

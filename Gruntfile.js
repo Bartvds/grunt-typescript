@@ -27,6 +27,13 @@ module.exports = function (grunt) {
                     sourcemap:true
                 }
             },
+	        "sourcemap-fullpath":{
+		        src:"test/fixtures/sourcemap-fullpath.ts",
+		        options:{
+			        sourcemap:true,
+			        sourcemapfullpath:true
+		        }
+	        },
             es5:{
                 src:"test/fixtures/es5.ts",
                 options:{
@@ -89,5 +96,4 @@ module.exports = function (grunt) {
     grunt.registerTask("test", ["clean", "typescript", "nodeunit"]);
 
     grunt.registerTask("default", ["test"]);
-
 };
