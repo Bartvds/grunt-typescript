@@ -191,8 +191,8 @@ module.exports = function (grunt) {
             if (options.sourcemap) {
                 setting.mapSourceFiles = options.sourcemap;
             }
-	        if (options.sourcemapfullpath) {
-		        setting.emitFullSourceMapPath = options.sourcemapfullpath;
+	        if (options.sourcemap_fullpath) {
+		        setting.emitFullSourceMapPath = options.sourcemap_fullpath;
 	        }
             if (options.declaration_file || options.declaration) {
                 setting.generateDeclarationFiles = true;

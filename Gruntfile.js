@@ -31,7 +31,7 @@ module.exports = function (grunt) {
 		        src:"test/fixtures/sourcemap-fullpath.ts",
 		        options:{
 			        sourcemap:true,
-			        sourcemapfullpath:true
+			        sourcemap_fullpath:true
 		        }
 	        },
             es5:{
