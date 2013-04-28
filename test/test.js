@@ -60,7 +60,8 @@ module.exports.typescript = {
 
 		actual = grunt.file.read("test/fixtures/sourcemap-fullpath.js.map");
 		expected = grunt.file.read("test/expected/sourcemap-fullpath.js.map");
-		expected = expected.replace('####SRC####', full + '/sourcemap-fullpath.js');
+		expected = expected.replace('####JS####', full + '/sourcemap-fullpath.js');
+		expected = expected.replace('####TS####', full + '/sourcemap-fullpath.ts');
 		test.equal(expected, actual);
 
 		test.done();
