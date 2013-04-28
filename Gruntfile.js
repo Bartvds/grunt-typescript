@@ -9,7 +9,11 @@ module.exports = function (grunt) {
                 "test/fixtures/*.d.ts",
                 "test/temp/**/*.*",
                 "test/temp"
-            ]
+            ],
+	        sourcemap_dev:[
+		        "test/sourcemap/**/*.js",
+		        "test/sourcemap/**/*.js.map"
+	        ]
         },
         typescript:{
             simple:{
@@ -114,5 +118,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask("default", ["test"]);
 
-    grunt.registerTask("edit_01", ["typescript:sourcemap_dev","typescript:sourcemap_dev_full"]);
+	//temporary link tasks to editor buttons
+    grunt.registerTask("edit_01", ["clean"]);
+    grunt.registerTask("edit_02", ["test"]);
+    grunt.registerTask("edit_03", ["typescript:sourcemap_dev","typescript:sourcemap_dev_full"]);
 };
