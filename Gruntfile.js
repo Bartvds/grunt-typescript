@@ -10,10 +10,10 @@ module.exports = function (grunt) {
                 "test/temp/**/*.*",
                 "test/temp"
             ],
-	        sourcemap_dev:[
-		        "test/sourcemap/**/*.js",
-		        "test/sourcemap/**/*.js.map"
-	        ]
+            demo_sourcemap:[
+                "demo/sourcemap/build/**/*.js",
+                "demo/sourcemap/build/**/*.js.map"
+            ]
         },
         typescript:{
             simple:{
@@ -31,13 +31,13 @@ module.exports = function (grunt) {
                     sourcemap:true
                 }
             },
-	        "sourcemap-fullpath":{
-		        src:"test/fixtures/sourcemap-fullpath.ts",
-		        options:{
-			        sourcemap:true,
-			        sourcemap_fullpath:true
-		        }
-	        },
+            "sourcemap-fullpath":{
+                src:"test/fixtures/sourcemap-fullpath.ts",
+                options:{
+                    sourcemap:true,
+                    sourcemap_fullpath:true
+                }
+            },
             es5:{
                 src:"test/fixtures/es5.ts",
                 options:{
@@ -88,23 +88,23 @@ module.exports = function (grunt) {
                     comments:true
                 }
             },
-	        sourcemap_dev:{
-		        src:"test/sourcemap/sourcemap.ts",
-		        dest:"test/sourcemap",
-		        options: {
-			        base_path: "test/sourcemap/",
-			        sourcemap:true
-		        }
-	        },
-	        sourcemap_dev_full:{
-		        src:"test/sourcemap/sourcemap-fullpath.ts",
-		        dest:"test/sourcemap/fullpath",
-		        options: {
-			        base_path: "test/sourcemap/",
-			        sourcemap:true,
-			        sourcemap_fullpath:true
-		        }
-	        }
+            demo_sourcemap:{
+                src:"demo/sourcemap/lib/sourcemap.ts",
+                dest:"demo/sourcemap/build/",
+                options: {
+                    base_path: "demo/sourcemap/lib/",
+                    sourcemap:true
+                }
+            },
+            demo_sourcemap_full:{
+                src:"demo/sourcemap/lib/sourcemap-fullpath.ts",
+                dest:"demo/sourcemap/build/",
+                options: {
+                    base_path: "demo/sourcemap/lib/",
+                    sourcemap:true,
+                    sourcemap_fullpath:true
+                }
+            }
         },
         nodeunit:{
             tests:["test/test.js"]
@@ -118,8 +118,10 @@ module.exports = function (grunt) {
 
     grunt.registerTask("default", ["test"]);
 
-	//temporary link tasks to editor buttons
+    grunt.registerTask("demo", ["typescript:demo_sourcemap","typescript:demo_sourcemap_full"]);
+
+    //link tasks to editor buttons
     grunt.registerTask("edit_01", ["clean"]);
     grunt.registerTask("edit_02", ["test"]);
-    grunt.registerTask("edit_03", ["typescript:sourcemap_dev","typescript:sourcemap_dev_full"]);
+    grunt.registerTask("edit_03", ["demo"]);
 };
