@@ -83,7 +83,24 @@ module.exports = function (grunt) {
                 options:{
                     comments:true
                 }
-            }
+            },
+	        sourcemap_dev:{
+		        src:"test/sourcemap/sourcemap.ts",
+		        dest:"test/sourcemap",
+		        options: {
+			        base_path: "test/sourcemap/",
+			        sourcemap:true
+		        }
+	        },
+	        sourcemap_dev_full:{
+		        src:"test/sourcemap/sourcemap-fullpath.ts",
+		        dest:"test/sourcemap/fullpath",
+		        options: {
+			        base_path: "test/sourcemap/",
+			        sourcemap:true,
+			        sourcemap_fullpath:true
+		        }
+	        }
         },
         nodeunit:{
             tests:["test/test.js"]
@@ -96,4 +113,6 @@ module.exports = function (grunt) {
     grunt.registerTask("test", ["clean", "typescript", "nodeunit"]);
 
     grunt.registerTask("default", ["test"]);
+
+    grunt.registerTask("edit_01", ["typescript:sourcemap_dev","typescript:sourcemap_dev_full"]);
 };
