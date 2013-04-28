@@ -9,6 +9,10 @@ module.exports = function (grunt) {
                 "test/fixtures/*.d.ts",
                 "test/temp/**/*.*",
                 "test/temp"
+            ],
+            demo_sourcemap:[
+                "demo/sourcemap/build/**/*.js",
+                "demo/sourcemap/build/**/*.js.map"
             ]
         },
         typescript:{
@@ -27,13 +31,13 @@ module.exports = function (grunt) {
                     sourcemap:true
                 }
             },
-	        "sourcemap-fullpath":{
-		        src:"test/fixtures/sourcemap-fullpath.ts",
-		        options:{
-			        sourcemap:true,
-			        sourcemapfullpath:true
-		        }
-	        },
+            "sourcemap-fullpath":{
+                src:"test/fixtures/sourcemap-fullpath.ts",
+                options:{
+                    sourcemap:true,
+                    sourcemap_fullpath:true
+                }
+            },
             es5:{
                 src:"test/fixtures/es5.ts",
                 options:{
@@ -83,6 +87,23 @@ module.exports = function (grunt) {
                 options:{
                     comments:true
                 }
+            },
+            demo_sourcemap:{
+                src:"demo/sourcemap/lib/sourcemap.ts",
+                dest:"demo/sourcemap/build/",
+                options: {
+                    base_path: "demo/sourcemap/lib/",
+                    sourcemap:true
+                }
+            },
+            demo_sourcemap_full:{
+                src:"demo/sourcemap/lib/sourcemap-fullpath.ts",
+                dest:"demo/sourcemap/build/",
+                options: {
+                    base_path: "demo/sourcemap/lib/",
+                    sourcemap:true,
+                    sourcemap_fullpath:true
+                }
             }
         },
         nodeunit:{
@@ -96,4 +117,11 @@ module.exports = function (grunt) {
     grunt.registerTask("test", ["clean", "typescript", "nodeunit"]);
 
     grunt.registerTask("default", ["test"]);
+
+    grunt.registerTask("demo", ["typescript:demo_sourcemap","typescript:demo_sourcemap_full"]);
+
+    //link tasks to editor buttons
+    grunt.registerTask("edit_01", ["clean"]);
+    grunt.registerTask("edit_02", ["test"]);
+    grunt.registerTask("edit_03", ["demo"]);
 };
