@@ -11,8 +11,10 @@ module.exports = function (grunt) {
                 "test/temp"
             ],
             demo_sourcemap:[
-                "demo/sourcemap/build/**/*.js",
-                "demo/sourcemap/build/**/*.js.map"
+                "demo/grunt/build/**/*.js",
+                "demo/grunt/build/**/*.js.map",
+                "demo/tsc/build/**/*.js",
+                "demo/tsc/build/**/*.js.map"
             ]
         },
         typescript:{
@@ -89,18 +91,18 @@ module.exports = function (grunt) {
                 }
             },
             demo_sourcemap:{
-                src:"demo/sourcemap/lib/sourcemap.ts",
-                dest:"demo/sourcemap/build/",
+                src:"demo/grunt/lib/basic.ts",
+                dest:"demo/grunt/build/js/",
                 options: {
-                    base_path: "demo/sourcemap/lib/",
+                    base_path: "demo/grunt/lib/",
                     sourcemap:true
                 }
             },
             demo_sourcemap_full:{
-                src:"demo/sourcemap/lib/sourcemap-fullpath.ts",
-                dest:"demo/sourcemap/build/",
+                src:"demo/grunt/lib/fullpath.ts",
+                dest:"demo/grunt/build/js/",
                 options: {
-                    base_path: "demo/sourcemap/lib/",
+                    base_path: "demo/grunt/lib/",
                     sourcemap:true,
                     sourcemap_fullpath:true
                 }
