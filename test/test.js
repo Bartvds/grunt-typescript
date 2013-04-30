@@ -34,12 +34,12 @@ module.exports.typescript = {
 
         test.expect(2);
 
-        var actual = grunt.file.read("test/fixtures/sourcemap.js");
-        var expected = grunt.file.read("test/expected/sourcemap.js");
+        var actual = grunt.file.read("test/fixtures/sourcemap/sourcemap.js");
+        var expected = grunt.file.read("test/expected/sourcemap/sourcemap.js");
         test.equal(expected, actual);
 
-        actual = grunt.file.read("test/fixtures/sourcemap.js.map");
-        expected = grunt.file.read("test/expected/sourcemap.js.map");
+        actual = grunt.file.read("test/fixtures/sourcemap/sourcemap.js.map");
+        expected = grunt.file.read("test/expected/sourcemap/sourcemap.js.map");
         test.equal(expected, actual);
 
         test.done();
@@ -49,19 +49,19 @@ module.exports.typescript = {
 
 		test.expect(2);
 
-		var full = path.dirname(path.resolve("test/fixtures/sourcemap-fullpath.ts"));
+		var full = path.dirname(path.resolve("test/fixtures/sourcemap/sourcemap-fullpath.ts"));
 		//make file url with forward slashes
 		full = 'file:///' + full.replace(/\\/g, '/');
 
-		var actual = grunt.file.read("test/fixtures/sourcemap-fullpath.js");
-		var expected = grunt.file.read("test/expected/sourcemap-fullpath.js");
+		var actual = grunt.file.read("test/fixtures/sourcemap/sourcemap-fullpath.js");
+		var expected = grunt.file.read("test/expected/sourcemap/sourcemap-fullpath.js");
 		expected = expected.replace('####MAP####', full + '/sourcemap-fullpath.js.map');
 		test.equal(expected, actual);
 
-		actual = grunt.file.read("test/fixtures/sourcemap-fullpath.js.map");
-		expected = grunt.file.read("test/expected/sourcemap-fullpath.js.map");
+		actual = grunt.file.read("test/fixtures/sourcemap/sourcemap-fullpath.js.map");
+		expected = grunt.file.read("test/expected/sourcemap/sourcemap-fullpath.js.map");
 		expected = expected.replace('####JS####', full + '/sourcemap-fullpath.js');
-		expected = expected.replace('####TS####', full + '/sourcemap-fullpath.ts');
+		expected = expected.replace('####TS####', '../sourcemap-fullpath.ts');
 		test.equal(expected, actual);
 
 		test.done();
