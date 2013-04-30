@@ -5,16 +5,16 @@ module.exports = function (grunt) {
         clean:{
             test:[
                 "test/fixtures/**/*.js",
-                "test/fixtures/*.js.map",
+                "test/fixtures/sourcemap/*.js.map",
                 "test/fixtures/*.d.ts",
                 "test/temp/**/*.*",
                 "test/temp"
             ],
-            demo_sourcemap:[
-                "demo/grunt/build/**/*.js",
-                "demo/grunt/build/**/*.js.map",
-                "demo/tsc/build/**/*.js",
-                "demo/tsc/build/**/*.js.map"
+            demo_sourcemap_basic:[
+                "demo/sourcemap/grunt/build/**/*.js",
+                "demo/sourcemap/grunt/build/**/*.js.map",
+                "demo/sourcemap/tsc/build/**/*.js",
+                "demo/sourcemap/tsc/build/**/*.js.map"
             ]
         },
         typescript:{
@@ -29,13 +29,17 @@ module.exports = function (grunt) {
             },
             sourcemap:{
                 src:"test/fixtures/sourcemap.ts",
+                dest:"test/fixtures/sourcemap/",
                 options:{
+                    base_path: "test/fixtures/",
                     sourcemap:true
                 }
             },
             "sourcemap-fullpath":{
                 src:"test/fixtures/sourcemap-fullpath.ts",
+                dest:"test/fixtures/sourcemap/",
                 options:{
+                    base_path: "test/fixtures/",
                     sourcemap:true,
                     sourcemap_fullpath:true
                 }
@@ -90,19 +94,19 @@ module.exports = function (grunt) {
                     comments:true
                 }
             },
-            demo_sourcemap:{
-                src:"demo/grunt/lib/basic.ts",
-                dest:"demo/grunt/build/js/",
+            demo_sourcemap_basic:{
+                src:"demo/sourcemap/grunt/lib/basic.ts",
+                dest:"demo/sourcemap/grunt/build/js/",
                 options: {
-                    base_path: "demo/grunt/lib/",
+                    base_path: "demo/sourcemap/grunt/lib/",
                     sourcemap:true
                 }
             },
             demo_sourcemap_full:{
-                src:"demo/grunt/lib/fullpath.ts",
-                dest:"demo/grunt/build/js/",
+                src:"demo/sourcemap/grunt/lib/fullpath.ts",
+                dest:"demo/sourcemap/grunt/build/js/",
                 options: {
-                    base_path: "demo/grunt/lib/",
+                    base_path: "demo/sourcemap/grunt/lib/",
                     sourcemap:true,
                     sourcemap_fullpath:true
                 }
@@ -110,17 +114,40 @@ module.exports = function (grunt) {
         },
         nodeunit:{
             tests:["test/test.js"]
+        },
+        shell: {
+            demo_sourcemap_basic: {
+                command: 'tsc --sourcemap -v -out build/js lib/basic.ts',
+                options: {
+                    stdout: true,
+                    stderr: true,
+                    execOptions: {
+                        cwd: 'demo/sourcemap/tsc/'
+                    }
+                }
+            },
+            demo_sourcemap_full: {
+                command: 'tsc --sourcemap --fullSourceMapPath -v -out build/js lib/fullpath.ts',
+                options: {
+                    stdout: true,
+                    stderr: true,
+                    execOptions: {
+                        cwd: 'demo/sourcemap/tsc/'
+                    }
+                }
+            }
         }
     });
 
     grunt.loadTasks("tasks");
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
     grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-shell");
     grunt.registerTask("test", ["clean", "typescript", "nodeunit"]);
 
     grunt.registerTask("default", ["test"]);
 
-    grunt.registerTask("demo", ["typescript:demo_sourcemap","typescript:demo_sourcemap_full"]);
+    grunt.registerTask("demo", ["typescript:demo_sourcemap_basic","typescript:demo_sourcemap_full", "shell:demo_sourcemap_basic","shell:demo_sourcemap_full"]);
 
     //link tasks to editor buttons
     grunt.registerTask("edit_01", ["clean"]);
