@@ -36,11 +36,19 @@ module.exports.typescript = {
 
         var actual = grunt.file.read("test/fixtures/sourcemap/sourcemap.js");
         var expected = grunt.file.read("test/expected/sourcemap/sourcemap.js");
-        test.equal(expected, actual);
+        //save for debugging
+        grunt.file.write("test/fixtures/sourcemap/sourcemap-expected.js", expected);
+
+        test.equal(expected, actual, 'incorrect output javascript');
+
 
         actual = grunt.file.read("test/fixtures/sourcemap/sourcemap.js.map");
         expected = grunt.file.read("test/expected/sourcemap/sourcemap.js.map");
-        test.equal(expected, actual);
+
+        //save for debugging
+        grunt.file.write("test/fixtures/sourcemap/sourcemap-expected.js.map", expected);
+
+        test.equal(expected, actual, 'incorrect sourcemap');
 
         test.done();
     },
@@ -56,13 +64,21 @@ module.exports.typescript = {
 		var actual = grunt.file.read("test/fixtures/sourcemap/sourcemap-fullpath.js");
 		var expected = grunt.file.read("test/expected/sourcemap/sourcemap-fullpath.js");
 		expected = expected.replace('####MAP####', full + '/sourcemap-fullpath.js.map');
-		test.equal(expected, actual);
+
+        //save for debugging
+        grunt.file.write("test/fixtures/sourcemap/sourcemap-fullpath-expected.js", expected);
+
+		test.equal(expected, actual, 'incorrect output javascript');
 
 		actual = grunt.file.read("test/fixtures/sourcemap/sourcemap-fullpath.js.map");
 		expected = grunt.file.read("test/expected/sourcemap/sourcemap-fullpath.js.map");
 		expected = expected.replace('####JS####', full + '/sourcemap-fullpath.js');
 		expected = expected.replace('####TS####', '../sourcemap-fullpath.ts');
-		test.equal(expected, actual);
+
+        //save for debugging
+        grunt.file.write("test/fixtures/sourcemap/sourcemap-fullpath-expected.js.map", expected);
+
+		test.equal(expected, actual, 'incorrect sourcemap');
 
 		test.done();
 	},

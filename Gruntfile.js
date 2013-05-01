@@ -9,12 +9,6 @@ module.exports = function (grunt) {
                 "test/fixtures/*.d.ts",
                 "test/temp/**/*.*",
                 "test/temp"
-            ],
-            demo_sourcemap:[
-                "demo/sourcemap/grunt/build/**/*.js",
-                "demo/sourcemap/grunt/build/**/*.js.map",
-                "demo/sourcemap/tsc/build/**/*.js",
-                "demo/sourcemap/tsc/build/**/*.js.map"
             ]
         },
         typescript:{
@@ -143,11 +137,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-shell");
-    grunt.registerTask("test", ["clean", "typescript", "nodeunit"]);
+    grunt.registerTask("test", ["clean:test", "typescript", "nodeunit"]);
 
-    grunt.registerTask("default", ["clean:test", "test"]);
+    grunt.registerTask("default", ["test"]);
 
-    grunt.registerTask("demo", ["clean:demo_sourcemap", "typescript:demo_sourcemap_basic","typescript:demo_sourcemap_full", "shell:demo_sourcemap_basic","shell:demo_sourcemap_full"]);
+    grunt.registerTask("demo", ["typescript:demo_sourcemap_basic","typescript:demo_sourcemap_full", "shell:demo_sourcemap_basic","shell:demo_sourcemap_full"]);
 
     grunt.registerTask("build", ["demo"]);
 };
