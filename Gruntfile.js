@@ -10,7 +10,7 @@ module.exports = function (grunt) {
                 "test/temp/**/*.*",
                 "test/temp"
             ],
-            demo_sourcemap_basic:[
+            demo_sourcemap:[
                 "demo/sourcemap/grunt/build/**/*.js",
                 "demo/sourcemap/grunt/build/**/*.js.map",
                 "demo/sourcemap/tsc/build/**/*.js",
@@ -145,12 +145,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-shell");
     grunt.registerTask("test", ["clean", "typescript", "nodeunit"]);
 
-    grunt.registerTask("default", ["test"]);
+    grunt.registerTask("default", ["clean:test", "test"]);
 
-    grunt.registerTask("demo", ["typescript:demo_sourcemap_basic","typescript:demo_sourcemap_full", "shell:demo_sourcemap_basic","shell:demo_sourcemap_full"]);
+    grunt.registerTask("demo", ["clean:demo_sourcemap", "typescript:demo_sourcemap_basic","typescript:demo_sourcemap_full", "shell:demo_sourcemap_basic","shell:demo_sourcemap_full"]);
 
-    //link tasks to editor buttons
-    grunt.registerTask("edit_01", ["clean"]);
-    grunt.registerTask("edit_02", ["test"]);
-    grunt.registerTask("edit_03", ["demo"]);
+    grunt.registerTask("build", ["demo"]);
 };
